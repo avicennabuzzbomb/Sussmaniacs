@@ -1,8 +1,13 @@
 ###########################--GEE Labeling Script: takes input from .txt and .csv files and retrieves GEE-labeled peptides--###########################################
 
 #for testing, removes files output by this script
+#remember to remove these or comment out when it is actually finished.
 rm output.csv
 rm error.csv
+
+########--NOTE TO SELF: In the future, this could have additional utility by making it able to be called from the shell with arguments (ex, call it for different modifications,
+########--such as phospho, or MetOx, or deammidations, or hydroxyfootprinting, and so on... make the grep pattern an argument, use if branches to call the correct code.
+
 
 DATE=$(date)
 echo "$DATE"
