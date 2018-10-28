@@ -46,6 +46,12 @@ then
 		fi
 	done
 
+#########|														|##########
+#########|This also needs to separately extract non-GEE-labeled peptides for properly quantifying labeling efficiency.  |##########
+#########|Alternatively, this should just count all the peptides, THEN count GEE peptides, THEN extract GEE peptides.   |##########
+#########|Labeling efficieny can simply be total GEE versus total peptides detected for each sample versus the control. |##########
+#########|														|##########
+
 	if [ -e output.csv ]
 	then
                 echo "Results file successfully created. File preview displayed below:"
