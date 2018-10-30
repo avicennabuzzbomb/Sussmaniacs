@@ -35,13 +35,42 @@ then
 				analysis=$(basename -s ".txt" "$filename")
 				importantData=$(grep "xGEE" "$filename" | cut -d '	' -f 3,4,10,12,15,18 | sed s/"	"/","/g)
 				echo "$importantData" >> output.csv
+
+				#count all the recorded peptides
+				totalPeptides=$(grep "FALSE" "$filename" | wc -l)
+				#make bash treat as an integer
+				declare -i totalPeptides
+				#count all the GEE peptides
+				GEEpeptides=$(grep "GEE" "$filename" | wc -l)
+				#make bash treat as an integer
+				declare -i GEEpeptides
+				#calculate the unlabeled peptides
+				let unlabeled=totalPeptides-GEEpeptides
+				echo "Total peptides detected: $totalPeptides"
+				echo "GEE labeled peptides detected: $GEEpeptides"
+				echo "Unlabeled peptides: $unlabeled"
+
                                 #######LEAVE SPACE FOR ADDITIONAL CODE. THIS SPACE IS FOR CALCULATIONS AND OTHER MANIPULATIONS TO THE EXTRACTED DATA#########
 
 			else [ $filetype = "csv" ]
                         	analysis=$(basename -s ".csv" "$filename" | sed s/".csv"//g)
                         	importantData=$(grep "xGEE" "$filename" | cut -d ',' -f 3,4,10,12,15,18)
                         	echo "$importantData" >> output.csv
-				#######LEAVE SPACE FOR ADDITIONAL CODE. THIS SPACE IS FOR CALCULATIONS AND OTHER MANIPULATIONS TO THE EXTRACTED DATA#########
+
+                                #count all the recorded peptides
+                                totalPeptides=$(grep "FALSE" "$filename" | wc -l)
+                                #make bash treat as an integer
+                                declare -i totalPeptides
+                                #count all the GEE peptides
+                                GEEpeptides=$(grep "GEE" "$filename" | wc -l)
+                                #make bash treat as an integer
+                                declare -i GEEpeptides
+                                #calculate the unlabeled peptides
+                                let unlabeled=totalPeptides-GEEpeptides
+                                echo "Total peptides detected: $totalPeptides"
+                                echo "GEE labeled peptides detected: $GEEpeptides"
+                                echo "Unlabeled peptides: $unlabeled"
+
 			fi
 		fi
 	done
@@ -51,6 +80,7 @@ then
 #########|Alternatively, this should just count all the peptides, THEN count GEE peptides, THEN extract GEE peptides.   |##########
 #########|Labeling efficieny can simply be total GEE versus total peptides detected for each sample versus the control. |##########
 #########|														|##########
+
 
 	if [ -e output.csv ]
 	then
